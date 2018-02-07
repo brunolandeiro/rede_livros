@@ -4,9 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class index extends Controller
+class HomeController extends Controller
 {
-
     /**
      * Create a new controller instance.
      *
@@ -16,8 +15,14 @@ class index extends Controller
     {
         $this->middleware('auth');
     }
-    
-    public function index(){
-        return view('layout.app');
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        return view('home');
     }
 }
