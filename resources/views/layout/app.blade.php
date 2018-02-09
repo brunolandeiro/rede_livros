@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <!-- saved from url=(0061)https://www.w3schools.com/w3css/tryw3css_templates_social.htm -->
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>W3.CSS Template</title>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>@yield('title')</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="{{asset('/W3.CSS Template_files/w3.css')}}">
-<link rel="stylesheet" href="{{asset('/W3.CSS Template_files/w3-theme-blue-grey.css')}}">
-<link rel="stylesheet" href="{{asset('/W3.CSS Template_files/css')}}">
-<link rel="stylesheet" href="{{asset('/W3.CSS Template_files/font-awesome.min.css')}}">
+<link rel="stylesheet" href="{{asset('/W3.CSS/w3.css')}}">
+<link rel="stylesheet" href="{{asset('/W3.CSS/w3-theme-blue-grey.css')}}">
+<link rel="stylesheet" href="{{asset('/W3.CSS/css')}}">
+<link rel="stylesheet" href="{{asset('/W3.CSS/font-awesome.min.css')}}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
 html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
@@ -31,7 +31,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
     </div>
   </div>
   <a href="https://www.w3schools.com/w3css/tryw3css_templates_social.htm#" class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large w3-hover-white" title="My Account">
-    <img src="{{asset('/W3.CSS Template_files/avatar2.png')}}" class="w3-circle" style="height:23px;width:23px" alt="Avatar">
+    <img src="{{asset('/W3.CSS/avatar2.png')}}" class="w3-circle" style="height:23px;width:23px" alt="Avatar">
   </a>
  </div>
 </div>
@@ -54,7 +54,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
       <div class="w3-card w3-round w3-white">
         <div class="w3-container">
          <h4 class="w3-center">My Profile</h4>
-         <p class="w3-center"><img src="{{asset('/W3.CSS Template_files/avatar3.png')}}" class="w3-circle" style="height:106px;width:106px" alt="Avatar"></p>
+         <p class="w3-center"><img src="{{asset('/W3.CSS/avatar3.png')}}" class="w3-circle" style="height:106px;width:106px" alt="Avatar"></p>
          <hr>
          <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i> Designer, UI</p>
          <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i> London, UK</p>
@@ -79,22 +79,22 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
          <div class="w3-row-padding">
          <br>
            <div class="w3-half">
-             <img src="{{asset('/W3.CSS Template_files/lights.jpg')}}" style="width:100%" class="w3-margin-bottom">
+             <img src="{{asset('/W3.CSS/lights.jpg')}}" style="width:100%" class="w3-margin-bottom">
            </div>
            <div class="w3-half">
-             <img src="{{asset('/W3.CSS Template_files/nature.jpg')}}" style="width:100%" class="w3-margin-bottom">
+             <img src="{{asset('/W3.CSS/nature.jpg')}}" style="width:100%" class="w3-margin-bottom">
            </div>
            <div class="w3-half">
-             <img src="{{asset('/W3.CSS Template_files/mountains.jpg')}}" style="width:100%" class="w3-margin-bottom">
+             <img src="{{asset('/W3.CSS/mountains.jpg')}}" style="width:100%" class="w3-margin-bottom">
            </div>
            <div class="w3-half">
-             <img src="{{asset('/W3.CSS Template_files/forest.jpg')}}" style="width:100%" class="w3-margin-bottom">
+             <img src="{{asset('/W3.CSS/forest.jpg')}}" style="width:100%" class="w3-margin-bottom">
            </div>
            <div class="w3-half">
-             <img src="{{asset('/W3.CSS Template_files/nature.jpg')}}" style="width:100%" class="w3-margin-bottom">
+             <img src="{{asset('/W3.CSS/nature.jpg')}}" style="width:100%" class="w3-margin-bottom">
            </div>
            <div class="w3-half">
-             <img src="{{asset('/W3.CSS Template_files/fjords.jpg')}}" style="width:100%" class="w3-margin-bottom">
+             <img src="{{asset('/W3.CSS/fjords.jpg')}}" style="width:100%" class="w3-margin-bottom">
            </div>
          </div>
           </div>
@@ -151,17 +151,17 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
       </div>
 
       <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
-        <img src="{{asset('/W3.CSS Template_files/avatar2.png')}}" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">
+        <img src="{{asset('/W3.CSS/avatar2.png')}}" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">
         <span class="w3-right w3-opacity">1 min</span>
         <h4>John Doe</h4><br>
         <hr class="w3-clear">
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
           <div class="w3-row-padding" style="margin:0 -16px">
             <div class="w3-half">
-              <img src="{{asset('/W3.CSS Template_files/lights.jpg')}}" style="width:100%" alt="Northern Lights" class="w3-margin-bottom">
+              <img src="{{asset('/W3.CSS/lights.jpg')}}" style="width:100%" alt="Northern Lights" class="w3-margin-bottom">
             </div>
             <div class="w3-half">
-              <img src="{{asset('/W3.CSS Template_files/nature.jpg')}}" style="width:100%" alt="Nature" class="w3-margin-bottom">
+              <img src="{{asset('/W3.CSS/nature.jpg')}}" style="width:100%" alt="Nature" class="w3-margin-bottom">
           </div>
         </div>
         <button type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i> &nbsp;Like</button>
@@ -169,7 +169,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
       </div>
 
       <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
-        <img src="{{asset('/W3.CSS Template_files/avatar5.png')}}" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">
+        <img src="{{asset('/W3.CSS/avatar5.png')}}" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">
         <span class="w3-right w3-opacity">16 min</span>
         <h4>Jane Doe</h4><br>
         <hr class="w3-clear">
@@ -179,12 +179,12 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
       </div>
 
       <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
-        <img src="{{asset('/W3.CSS Template_files/avatar6.png')}}" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">
+        <img src="{{asset('/W3.CSS/avatar6.png')}}" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">
         <span class="w3-right w3-opacity">32 min</span>
         <h4>Angie Jane</h4><br>
         <hr class="w3-clear">
         <p>Have you seen this?</p>
-        <img src="{{asset('/W3.CSS Template_files/nature.jpg')}}" style="width:100%" class="w3-margin-bottom">
+        <img src="{{asset('/W3.CSS/nature.jpg')}}" style="width:100%" class="w3-margin-bottom">
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
         <button type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i> &nbsp;Like</button>
         <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i> &nbsp;Comment</button>
@@ -198,7 +198,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
       <div class="w3-card w3-round w3-white w3-center">
         <div class="w3-container">
           <p>Upcoming Events:</p>
-          <img src="{{asset('/W3.CSS Template_files/forest.jpg')}}" alt="Forest" style="width:100%;">
+          <img src="{{asset('/W3.CSS/forest.jpg')}}" alt="Forest" style="width:100%;">
           <p><strong>Holiday</strong></p>
           <p>Friday 15:00</p>
           <p><button class="w3-button w3-block w3-theme-l4">Info</button></p>
@@ -209,7 +209,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
       <div class="w3-card w3-round w3-white w3-center">
         <div class="w3-container">
           <p>Friend Request</p>
-          <img src="{{asset('/W3.CSS Template_files/avatar6.png')}}" alt="Avatar" style="width:50%"><br>
+          <img src="{{asset('/W3.CSS/avatar6.png')}}" alt="Avatar" style="width:50%"><br>
           <span>Jane Doe</span>
           <div class="w3-row w3-opacity">
             <div class="w3-half">
