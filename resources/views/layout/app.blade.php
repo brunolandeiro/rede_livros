@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="{{asset('/W3.CSS/css')}}">
 <link rel="stylesheet" href="{{asset('/W3.CSS/font-awesome.min.css')}}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <style>
 html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
 </style>

@@ -16,8 +16,8 @@ class index extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     public function index(){
-        return view('layout.app');
+        return view('/home');
     }
 }

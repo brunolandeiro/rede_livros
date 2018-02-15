@@ -48,9 +48,24 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
+            'name' => 'required|string|max:30|min:3',
+            'email' => 'required|string|email|max:100|unique:users',
+            'password' => 'required|string|min:6|max:100|confirmed',
+        ],[
+            'name.required' => 'O campo Nome é obrigatório.',
+            'name.max' => 'O campo Nome deve ter no máximo :max caracteres.',
+            'name.min' => 'O campo Nome deve ter no mínimo :min caracteres.',
+
+            'email.required' => 'O campo E-mail é obrigatório.',
+            'email.max' => 'O campo E-mail deve ter no máximo :max caracteres.',
+            'email.unique' => 'Este E-mail já está em uso. Tente outro.',
+            'email.email' => 'O E-mail deve ser um endereço de e-mail válido.',
+
+            'password.required' => 'O campo Senha é obrigatório.',
+            'password.max' => 'O campo Senha deve ter no máximo :max caracteres.',
+            'password.min' => 'O campo Senha deve ter no mínimo :min caracteres.',
+            'password.confirmed' => 'Essas senhas não coincidem.',
+
         ]);
     }
 

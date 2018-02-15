@@ -9,6 +9,7 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="croppie.css" />
 
         <!-- Styles -->
         <style>
@@ -91,5 +92,23 @@
                 </div>
             </div>
         </div>
+
+        <div class="col-sm-4">
+            <img src="https://foliotek.github.io/Croppie/demo/demo-1.jpg" >
+        </div>
+        <script src="croppie.js">
+        $uploadCrop = $('#upload-demo').croppie({
+            enableExif: true,
+            viewport: {
+                width: 200,
+                height: 200,
+                type: 'circle'
+            },
+            boundary: {
+                width: 300,
+                height: 300
+            }
+        });
+        </script>
     </body>
 </html>
