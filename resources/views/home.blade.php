@@ -86,6 +86,45 @@
             </div>
             <br>
 
+            <!-- Accordion -->
+            <div class="w3-card w3-round">
+              <div class="w3-white">
+                <button onclick="myFunction(&#39;Demo1&#39;)" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-book fa-fw w3-margin-right"></i> Lidos</button>
+                <div id="Demo1" class="w3-hide w3-container">
+                  <p>Some text..</p>
+                </div>
+                <button onclick="myFunction(&#39;Demo2&#39;)" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-book fa-fw w3-margin-right"></i> Lendo</button>
+                <div id="Demo2" class="w3-hide w3-container">
+                  <p>Some other text..</p>
+                </div>
+                <button onclick="myFunction(&#39;Demo3&#39;)" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-book fa-fw w3-margin-right"></i> Quero ler</button>
+                <div id="Demo3" class="w3-hide w3-container">
+               <div class="w3-row-padding">
+               <br>
+                 <div class="w3-half">
+                   <img src="{{asset('/W3.CSS/lights.jpg')}}" style="width:100%" class="w3-margin-bottom">
+                 </div>
+                 <div class="w3-half">
+                   <img src="{{asset('/W3.CSS/nature.jpg')}}" style="width:100%" class="w3-margin-bottom">
+                 </div>
+                 <div class="w3-half">
+                   <img src="{{asset('/W3.CSS/mountains.jpg')}}" style="width:100%" class="w3-margin-bottom">
+                 </div>
+                 <div class="w3-half">
+                   <img src="{{asset('/W3.CSS/forest.jpg')}}" style="width:100%" class="w3-margin-bottom">
+                 </div>
+                 <div class="w3-half">
+                   <img src="{{asset('/W3.CSS/nature.jpg')}}" style="width:100%" class="w3-margin-bottom">
+                 </div>
+                 <div class="w3-half">
+                   <img src="{{asset('/W3.CSS/fjords.jpg')}}" style="width:100%" class="w3-margin-bottom">
+                 </div>
+               </div>
+                </div>
+              </div>
+            </div>
+            <br>
+
         <!-- END Left Column -->
         </div>
         <div class="w3-col m3">
