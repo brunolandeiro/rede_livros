@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
 
 class Img_perfil extends Model
@@ -13,8 +14,11 @@ class Img_perfil extends Model
      *
      * @var array
      */
+    protected $table = 'img_perfil';
+    protected $primaryKey = 'id_img_perfil';
+    public $timestamps = false;
     protected $fillable = [
-        'id_img_perfil', 'nome_img', 'fk_user_id'
+        'nome_img', 'fk_user_id'
     ];
 
     public function usuario() {
