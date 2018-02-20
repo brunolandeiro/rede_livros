@@ -19,5 +19,6 @@ Auth::routes();
 
 Route::get('home', 'HomeController@index')->name('home');
 Route::post('UpdatePerfil', 'HomeController@UpdatePerfil')->name('UpdatePerfil');
+Route::post('AddLivro', 'HomeController@AddLivro')->name('AddLivro');
 
 Route::get('/', 'index@index');

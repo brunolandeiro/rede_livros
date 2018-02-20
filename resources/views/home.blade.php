@@ -37,7 +37,7 @@
                             </div>
 
                             <form class="w3-container" method="post" action="{{route('UpdatePerfil')}}" enctype="multipart/form-data">
-                                 {{ csrf_field() }}
+                                {{ csrf_field() }}
                                 <div class="w3-section">
                                     <input type="file" id="img_perfil" name="img_perfil" accept="image/*">
                                     <br>
@@ -88,49 +88,134 @@
 
             <!-- Accordion -->
             <div class="w3-card w3-round">
-              <div class="w3-white">
-                <button onclick="myFunction(&#39;Demo1&#39;)" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-book fa-fw w3-margin-right"></i> Lidos</button>
-                <div id="Demo1" class="w3-hide w3-container">
-                  <p>Some text..</p>
+                <div class="w3-white">
+                    <button onclick="myFunction(&#39;Demo1&#39;)" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-book fa-fw w3-margin-right"></i> Lidos</button>
+                    <div id="Demo1" class="w3-hide w3-container">
+                        <p>Some text..</p>
+                    </div>
+                    <button onclick="myFunction(&#39;Demo2&#39;)" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-book fa-fw w3-margin-right"></i> Lendo</button>
+                    <div id="Demo2" class="w3-hide w3-container">
+                        <p>Some other text..</p>
+                    </div>
+                    <button onclick="myFunction(&#39;Demo3&#39;)" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-book fa-fw w3-margin-right"></i> Quero ler</button>
+                    <div id="Demo3" class="w3-hide w3-container">
+                        <div class="w3-row-padding">
+                            <br>
+                            <div class="w3-half">
+                                <img src="{{asset('/W3.CSS/lights.jpg')}}" style="width:100%" class="w3-margin-bottom">
+                            </div>
+                            <div class="w3-half">
+                                <img src="{{asset('/W3.CSS/nature.jpg')}}" style="width:100%" class="w3-margin-bottom">
+                            </div>
+                            <div class="w3-half">
+                                <img src="{{asset('/W3.CSS/mountains.jpg')}}" style="width:100%" class="w3-margin-bottom">
+                            </div>
+                            <div class="w3-half">
+                                <img src="{{asset('/W3.CSS/forest.jpg')}}" style="width:100%" class="w3-margin-bottom">
+                            </div>
+                            <div class="w3-half">
+                                <img src="{{asset('/W3.CSS/nature.jpg')}}" style="width:100%" class="w3-margin-bottom">
+                            </div>
+                            <div class="w3-half">
+                                <img src="{{asset('/W3.CSS/fjords.jpg')}}" style="width:100%" class="w3-margin-bottom">
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <button onclick="myFunction(&#39;Demo2&#39;)" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-book fa-fw w3-margin-right"></i> Lendo</button>
-                <div id="Demo2" class="w3-hide w3-container">
-                  <p>Some other text..</p>
-                </div>
-                <button onclick="myFunction(&#39;Demo3&#39;)" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-book fa-fw w3-margin-right"></i> Quero ler</button>
-                <div id="Demo3" class="w3-hide w3-container">
-               <div class="w3-row-padding">
-               <br>
-                 <div class="w3-half">
-                   <img src="{{asset('/W3.CSS/lights.jpg')}}" style="width:100%" class="w3-margin-bottom">
-                 </div>
-                 <div class="w3-half">
-                   <img src="{{asset('/W3.CSS/nature.jpg')}}" style="width:100%" class="w3-margin-bottom">
-                 </div>
-                 <div class="w3-half">
-                   <img src="{{asset('/W3.CSS/mountains.jpg')}}" style="width:100%" class="w3-margin-bottom">
-                 </div>
-                 <div class="w3-half">
-                   <img src="{{asset('/W3.CSS/forest.jpg')}}" style="width:100%" class="w3-margin-bottom">
-                 </div>
-                 <div class="w3-half">
-                   <img src="{{asset('/W3.CSS/nature.jpg')}}" style="width:100%" class="w3-margin-bottom">
-                 </div>
-                 <div class="w3-half">
-                   <img src="{{asset('/W3.CSS/fjords.jpg')}}" style="width:100%" class="w3-margin-bottom">
-                 </div>
-               </div>
-                </div>
-              </div>
             </div>
             <br>
 
-        <!-- END Left Column -->
+            <!-- END Left Column -->
         </div>
-        <div class="w3-col m3">
+        <!-- Middle Column -->
+        <div class="w3-col m7">
+            <!-- Box form titulo e autor -->
+            <div class="w3-row-padding">
+                <div class="w3-col m12">
+                    <div class="w3-card w3-round w3-white">
+                        <div class="w3-container w3-padding">
+                            <h6 class="w3-opacity">Adicione um livro a sua estante!</h6>
+                            <form method="post" action="{{route('AddLivro')}}">
+                                {{ csrf_field() }}
+                                <input class="w3-input" type="text" name="titulo" value="{{old('titulo')}}" placeholder="Título" request>
+                                @if ($errors->has('titulo'))
+                                <div class="w3-panel w3-pale-red w3-round w3-text-red">
+                                    <strong>{{ $errors->first('titulo') }}</strong>
+                                </div>
+                                @endif
+                                <input class="w3-input" type="text" name="autor" value="{{old('autor')}}" placeholder="Autor">
+                                <button type="submit" class="w3-button w3-theme w3-right">Adicionar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--End Box form titulo e autor -->
+            <!-- Tabs estante de livros -->
+            <div class="w3-card w3-white w3-round w3-margin">
+                <a href="javascript:void(0)" onclick="openCity(event, 'London', 'blue');" class="w3-text-blue">
+                    <div id="blue" class="w3-third tablink w3-bottombar  w3-hover-border-blue w3-padding w3-border-blue"><i class="fa fa-book fa-fw w3-margin-right "></i>London</div>
+                </a>
+                <a href="javascript:void(0)" onclick="openCity(event, 'Paris', 'green');" class="w3-text-green">
+                    <div id="green" class="w3-third tablink w3-bottombar w3-hover-border-green w3-padding  w3-border-white"><i class="fa fa-book fa-fw w3-margin-right "></i>Paris</div>
+                </a>
+                <a href="javascript:void(0)" onclick="openCity(event, 'Tokyo', 'red');" class="w3-text-red">
+                    <div id="red" class="w3-third tablink w3-bottombar  w3-hover-border-red w3-padding  w3-border-white"><i class="fa fa-book fa-fw w3-margin-right"></i>Tokyo</div>
+                </a>
+
+                <div id="London" class="w3-container city" style="display:block">
+                    <h2>London</h2>
+                    <p>London is the capital city of England.</p>
+                </div>
+
+                <div id="Paris" class="w3-container city" style="display:none">
+                    <h2>Paris</h2>
+                    <p>Paris is the capital of France.</p>
+                </div>
+
+                <div id="Tokyo" class="w3-container city" style="display:none">
+                    <h2>Tokyo</h2>
+                    <p>Tokyo is the capital of Japan.</p>
+                </div>
+                <script>
+                function openCity(evt, cityName, color) {
+                    var i, x, tablinks;
+                    x = document.getElementsByClassName("city");
+                    for (i = 0; i < x.length; i++) {
+                        x[i].style.display = "none";
+                    }
+                    tablinks = document.getElementsByClassName("tablink");
+                    blue = document.getElementById("blue");
+                    green = document.getElementById("green");
+                    red = document.getElementById("red");
+                    if(color == "blue"){
+                        blue.className = blue.className.replace(" w3-border-white", " w3-border-blue");
+                        green.className = green.className.replace(" w3-border-green", " w3-border-white");
+                        red.className = red.className.replace(" w3-border-red", " w3-border-white");
+                    }
+                    if(color == "green"){
+                        blue.className = blue.className.replace(" w3-border-blue", " w3-border-white");
+                        green.className = green.className.replace(" w3-border-white", " w3-border-green");
+                        red.className = red.className.replace(" w3-border-red", " w3-border-white");
+                    }
+                    if(color == "red"){
+                        blue.className = blue.className.replace(" w3-border-blue", " w3-border-white");
+                        green.className = green.className.replace(" w3-border-green", " w3-border-white");
+                        red.className = red.className.replace(" w3-border-white", " w3-border-red");
+                    }
+
+                    document.getElementById(cityName).style.display = "block";
+                    //evt.currentTarget.firstElementChild.className += color;
+                }
+                </script>
+            </div>
 
         </div>
-    <!-- END ROW -->
+
+        <!-- END Tabs estante de livros -->
+        <!-- End Middle Column -->
     </div>
+    <!-- END ROW -->
+</div>
 
 @endsection
