@@ -33,9 +33,11 @@ class HomeController extends Controller
         else{
             $img_nome = asset('/W3.CSS/avatar3.png');
         }
+        $livros = \App\Livro::where("user_fk", $usuario->id)->orderBy('livro_id', 'desc')->get();
         return view('home',[],[
             'usuario'=>$usuario,
-            'img'=> $img_nome
+            'img'=> $img_nome,
+            'livros' => $livros
         ]);
     }
 
@@ -107,5 +109,12 @@ class HomeController extends Controller
         }
 
         return $src;
+    }
+
+    public function trocaEstante(Request $request){
+        $data['estante'] = $request->estante;
+        $id = $request->livro_id;
+        \App\Livro::where('livro_id', $request->livro_id)->update($data);
+        return redirect('home');
     }
 }

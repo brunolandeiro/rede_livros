@@ -22,7 +22,7 @@
         <!-- Profile -->
         <div class="w3-card w3-round w3-white">
             <div class="w3-container">
-                <h4 class="w3-center">{{ $usuario->name }}</h4>
+                <p class="w3-center">{{ $usuario->name }}</p>
                 <p class="w3-center">
                     <a href="#" onclick="document.getElementById('id01').style.display='block'" >
                         <img src="{{$img}}" class="w3-circle img_perfil" style="height:106px;width:106px" alt="Avatar">
@@ -53,27 +53,6 @@
                             </form>
                         </div>
                     </div>
-                    <script>
-                    $("document").ready(function(){
-                        // Preview da img
-                        $("#img_perfil").change(function() {
-                            readURL(this);
-                        });
-
-                        function readURL(input) {
-
-                            if (input.files && input.files[0]) {
-                                var reader = new FileReader();
-
-                                reader.onload = function(e) {
-                                    $('#preview').attr('src', e.target.result);
-                                }
-
-                                reader.readAsDataURL(input.files[0]);
-                            }
-                        }
-                    });
-                    </script>
 
                     <!-- END Modal imagem perfil -->
                 </p>
@@ -86,44 +65,6 @@
             </div>
             <br>
 
-            <!-- Accordion -->
-            <div class="w3-card w3-round">
-                <div class="w3-white">
-                    <button onclick="myFunction(&#39;Demo1&#39;)" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-book fa-fw w3-margin-right"></i> Lidos</button>
-                    <div id="Demo1" class="w3-hide w3-container">
-                        <p>Some text..</p>
-                    </div>
-                    <button onclick="myFunction(&#39;Demo2&#39;)" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-book fa-fw w3-margin-right"></i> Lendo</button>
-                    <div id="Demo2" class="w3-hide w3-container">
-                        <p>Some other text..</p>
-                    </div>
-                    <button onclick="myFunction(&#39;Demo3&#39;)" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-book fa-fw w3-margin-right"></i> Quero ler</button>
-                    <div id="Demo3" class="w3-hide w3-container">
-                        <div class="w3-row-padding">
-                            <br>
-                            <div class="w3-half">
-                                <img src="{{asset('/W3.CSS/lights.jpg')}}" style="width:100%" class="w3-margin-bottom">
-                            </div>
-                            <div class="w3-half">
-                                <img src="{{asset('/W3.CSS/nature.jpg')}}" style="width:100%" class="w3-margin-bottom">
-                            </div>
-                            <div class="w3-half">
-                                <img src="{{asset('/W3.CSS/mountains.jpg')}}" style="width:100%" class="w3-margin-bottom">
-                            </div>
-                            <div class="w3-half">
-                                <img src="{{asset('/W3.CSS/forest.jpg')}}" style="width:100%" class="w3-margin-bottom">
-                            </div>
-                            <div class="w3-half">
-                                <img src="{{asset('/W3.CSS/nature.jpg')}}" style="width:100%" class="w3-margin-bottom">
-                            </div>
-                            <div class="w3-half">
-                                <img src="{{asset('/W3.CSS/fjords.jpg')}}" style="width:100%" class="w3-margin-bottom">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <br>
 
             <!-- END Left Column -->
         </div>
@@ -152,62 +93,105 @@
             </div>
             <!--End Box form titulo e autor -->
             <!-- Tabs estante de livros -->
+
             <div class="w3-card w3-white w3-round w3-margin">
                 <a href="javascript:void(0)" onclick="openCity(event, 'London', 'blue');" class="w3-text-blue">
-                    <div id="blue" class="w3-third tablink w3-bottombar  w3-hover-border-blue w3-padding w3-border-blue"><i class="fa fa-book fa-fw w3-margin-right "></i>London</div>
+                    <div id="blue" class="w3-third tablink w3-bottombar  w3-hover-border-blue w3-padding w3-border-blue"><i class="fa fa-book fa-fw w3-margin-right "></i>Quero ler</div>
                 </a>
                 <a href="javascript:void(0)" onclick="openCity(event, 'Paris', 'green');" class="w3-text-green">
-                    <div id="green" class="w3-third tablink w3-bottombar w3-hover-border-green w3-padding  w3-border-white"><i class="fa fa-book fa-fw w3-margin-right "></i>Paris</div>
+                    <div id="green" class="w3-third tablink w3-bottombar w3-hover-border-green w3-padding  w3-border-white"><i class="fa fa-book fa-fw w3-margin-right "></i>Lidos</div>
                 </a>
                 <a href="javascript:void(0)" onclick="openCity(event, 'Tokyo', 'red');" class="w3-text-red">
-                    <div id="red" class="w3-third tablink w3-bottombar  w3-hover-border-red w3-padding  w3-border-white"><i class="fa fa-book fa-fw w3-margin-right"></i>Tokyo</div>
+                    <div id="red" class="w3-third tablink w3-bottombar  w3-hover-border-red w3-padding  w3-border-white"><i class="fa fa-book fa-fw w3-margin-right"></i>Lendo</div>
                 </a>
-
+                <!-- ESTANTE DE QUERO LER -->
                 <div id="London" class="w3-container city" style="display:block">
-                    <h2>London</h2>
-                    <p>London is the capital city of England.</p>
-                </div>
+                    <div class="w3-row">
+                    @foreach($livros as $livro)
+                        @if($livro->estante == 1)
+                        <div class="w3-third w3-display-container w3-margin w3-leftbar w3-rightbar w3-topbar w3-bottombar w3-hover-border-blue w3-round" style="width:25%">
 
+                                <img src="{{$livro->img}}" style="width:100%" height="270">
+                                <div class="w3-display-topleft w3-text-white w3-black w3-opacity" style="text-shadow:1px 1px 0 #444">
+                                    <p>{{$livro->titulo}}</p>
+                                </div>
+                            <div class="w3-display-bottomleft">
+                                <div class="w3-tooltip">
+                                    <button class="w3-btn" title="Quero ler"><i class="fa fa-bookmark w3-text-blue"></i></button>
+                                    <div class="w3-text w3-animate-fade">
+                                        <form id="form-quero" action="{{route('trocaEstante')}}" method="post">
+                                            {{ csrf_field() }}
+                                            <input name="livro_id" type="hidden" value="{{$livro->livro_id}}">
+                                            <input name="estante" type="hidden" id="estante">
+                                            <button class="w3-button w3-bar-item"  type="button" title="Lido" onclick="mudaEstante('form-quero','estante',2)"><i class="fa fa-bookmark w3-text-green"></i></button>
+                                            <button class="w3-button w3-bar-item"  type="button" title="Lendo" onclick="mudaEstante('form-quero','estante',3)"><i class="fa fa-bookmark w3-text-red"></i></button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @endif
+                    @endforeach
+                    </div>
+                </div>
+                <!-- END ESTANTE DE QUERO LER -->
+                <!-- ESTANTE DE lIDOS -->
                 <div id="Paris" class="w3-container city" style="display:none">
-                    <h2>Paris</h2>
-                    <p>Paris is the capital of France.</p>
+                    @foreach($livros as $livro)
+                        @if($livro->estante == 2)
+                        <div class="w3-third w3-display-container w3-margin w3-leftbar w3-rightbar w3-topbar w3-bottombar w3-hover-border-green w3-round" style="width:25%">
+                                <img src="{{$livro->img}}" style="width:100%" height="270">
+                                <div class="w3-display-topleft w3-text-white w3-black w3-opacity" style="text-shadow:1px 1px 0 #444">
+                                    <p>{{$livro->titulo}}</p>
+                                </div>
+                            <div class="w3-display-bottomleft">
+                                <div class="w3-tooltip">
+                                    <button class="w3-btn" title="Lido"><i class="fa fa-bookmark w3-text-green"></i></button>
+                                    <div class="w3-text w3-animate-fade">
+                                        <form id="form-lido" action="{{route('trocaEstante')}}" method="post">
+                                            {{ csrf_field() }}
+                                            <input name="livro_id" type="hidden" value="{{$livro->livro_id}}">
+                                            <input name="estante" type="hidden" id="estante-green">
+                                            <button class="w3-button w3-bar-item" type="button"   title="Quero ler" onclick="mudaEstante('form-lido','estante-green',1)"><i class="fa fa-bookmark w3-text-blue"></i></button>
+                                            <button class="w3-button w3-bar-item" type="button"   title="Lendo" onclick="mudaEstante('form-lido','estante-green',3)"><i class="fa fa-bookmark w3-text-red"></i></button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @endif
+                    @endforeach
                 </div>
-
+                <!-- END ESTANTE DE LIDOS -->
+                <!-- ESTANTE DE LENDO -->
                 <div id="Tokyo" class="w3-container city" style="display:none">
-                    <h2>Tokyo</h2>
-                    <p>Tokyo is the capital of Japan.</p>
-                </div>
-                <script>
-                function openCity(evt, cityName, color) {
-                    var i, x, tablinks;
-                    x = document.getElementsByClassName("city");
-                    for (i = 0; i < x.length; i++) {
-                        x[i].style.display = "none";
-                    }
-                    tablinks = document.getElementsByClassName("tablink");
-                    blue = document.getElementById("blue");
-                    green = document.getElementById("green");
-                    red = document.getElementById("red");
-                    if(color == "blue"){
-                        blue.className = blue.className.replace(" w3-border-white", " w3-border-blue");
-                        green.className = green.className.replace(" w3-border-green", " w3-border-white");
-                        red.className = red.className.replace(" w3-border-red", " w3-border-white");
-                    }
-                    if(color == "green"){
-                        blue.className = blue.className.replace(" w3-border-blue", " w3-border-white");
-                        green.className = green.className.replace(" w3-border-white", " w3-border-green");
-                        red.className = red.className.replace(" w3-border-red", " w3-border-white");
-                    }
-                    if(color == "red"){
-                        blue.className = blue.className.replace(" w3-border-blue", " w3-border-white");
-                        green.className = green.className.replace(" w3-border-green", " w3-border-white");
-                        red.className = red.className.replace(" w3-border-white", " w3-border-red");
-                    }
+                    @foreach($livros as $livro)
+                        @if($livro->estante == 3)
+                        <div class="w3-third w3-display-container w3-margin w3-leftbar w3-rightbar w3-topbar w3-bottombar w3-hover-border-red w3-round" style="width:25%">
 
-                    document.getElementById(cityName).style.display = "block";
-                    //evt.currentTarget.firstElementChild.className += color;
-                }
-                </script>
+                                <img src="{{$livro->img}}" style="width:100%" height="270">
+                                <div class="w3-display-topleft w3-text-white w3-black w3-opacity" style="text-shadow:1px 1px 0 #444">
+                                    <p>{{$livro->titulo}}</p>
+                                </div>
+                            <div class="w3-display-bottomleft">
+                                <div class="w3-tooltip">
+                                    <button class="w3-btn" title="Lendo"><i class="fa fa-bookmark w3-text-red"></i></button>
+                                    <div class="w3-text w3-animate-fade">
+                                        <form id="form-lendo" action="{{route('trocaEstante')}}" method="post">
+                                            {{ csrf_field() }}
+                                            <input name="livro_id" type="hidden" value="{{$livro->livro_id}}">
+                                            <input name="estante" type="hidden" id="estante-red">
+                                            <button class="w3-button w3-bar-item"  type="button"  title="Lidos" onclick="mudaEstante('form-lendo','estante-red',1)"><i class="fa fa-bookmark w3-text-blue"></i></button>
+                                            <button class="w3-button w3-bar-item"   type="button" title="Quero ler" onclick="mudaEstante('form-lendo','estante-red',2)"><i class="fa fa-bookmark w3-text-green"></i></button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @endif
+                    @endforeach
+                </div>
+                <!-- END ESTANTE DE LENDO -->
             </div>
 
         </div>
@@ -216,6 +200,9 @@
         <!-- End Middle Column -->
     </div>
     <!-- END ROW -->
+    <!-- javascript -->
+    <script src="{{asset('/js/home.js')}}"></script>
+    <!-- END javascript -->
 </div>
 
 @endsection
