@@ -112,9 +112,23 @@ class HomeController extends Controller
     }
 
     public function trocaEstante(Request $request){
+        $msg_erro = 'Estamos com problemas para realizar a operação. Tente novamente mais tarde.';
+        $validator = Validator::make($request->all(), [
+            'estante' => 'required|numeric|max:3|min:1',
+            'livro_id' => 'required|numeric|min:1'
+        ], [
+            'estante.required' => $msg_erro,
+            'estante.max' => $msg_erro,
+            'estante.min' => $msg_erro,
+            'livro_id.required' => $msg_erro,
+            'livro_id.min' => $msg_erro
+        ]);
+        if ($validator->fails()) {
+            return redirect('home')->withErrors($validator)->withInput();
+        }
         $data['estante'] = $request->estante;
         $id = $request->livro_id;
         \App\Livro::where('livro_id', $request->livro_id)->update($data);
-        return redirect('home');
+        return redirect('home')->with('estante_atual', $request->estante);
     }
 }
