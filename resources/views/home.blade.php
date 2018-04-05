@@ -41,16 +41,21 @@ $linha_red = 'w3-border-white';
     <!-- Left Column -->
     <div class="w3-col m3">
         <!-- Profile / resources/views/box_profile.blade.php -->
-        @include('box_profile_dono')
+        @if($dono)
+            @include('box_profile_dono')
+        @else
+            @include('box_profile')
+        @endif
         <!-- END Profile -->
     </div>
     <!-- END Left Column -->
         <!-- Middle Column -->
         <div class="w3-col m7">
+            @if($dono)
             <!-- Box form titulo e autor -->
-            <div class="w3-row-padding">
+            <div class="w3-row">
                 <div class="w3-col m12">
-                    <div class="w3-card w3-round w3-white">
+                    <div class="w3-card w3-round w3-white w3-margin-bottom w3-margin-left">
                         <div class="w3-container w3-padding">
                             <h6 class="w3-opacity">Adicione um livro a sua estante!</h6>
                             <form method="post" action="{{route('AddLivro')}}">
@@ -69,6 +74,7 @@ $linha_red = 'w3-border-white';
                 </div>
             </div>
             <!--End Box form titulo e autor -->
+            @endif
             <!-- Tabs estante de livros -->
             @if ($errors->any())
                 @foreach ($errors->all() as $error)
@@ -78,7 +84,7 @@ $linha_red = 'w3-border-white';
                 <?php break ?>
                 @endforeach
             @endif
-            <div class="w3-card w3-white w3-round w3-margin">
+            <div class="w3-card w3-white w3-round w3-margin-left">
                 <a href="javascript:void(0)" onclick="openCity(event, 'London', 'blue');" class="w3-text-blue">
                     <div id="blue" class="w3-third tablink w3-bottombar  w3-hover-border-blue w3-padding {{$linha_blue}}"><i class="fa fa-bookmark fa-fw w3-margin-right "></i>Quero ler</div>
                 </a>
@@ -102,22 +108,24 @@ $linha_red = 'w3-border-white';
                                 <div class="w3-display-topleft w3-text-white w3-black w3-opacity" style="text-shadow:1px 1px 0 #444">
                                     <p>{{$livro->titulo}}</p>
                                 </div>
-                            <div class="w3-display-bottomleft">
-                                <div class="w3-tooltip w3-bar">
-                                    <button class="w3-button w3-white w3-border w3-border-blue w3-padding-small" title="Quero ler"><i class="fa fa-bookmark w3-text-blue"></i></button>
-                                    <div class="w3-text w3-animate-fade">
-                                        <form id="{{$form_quero}}" action="{{route('trocaEstante')}}" method="post">
-                                            {{ csrf_field() }}
-                                            <input name="livro_id" type="hidden" value="{{$livro->livro_id}}">
-                                            <input name="estante" type="hidden" id="{{$estante_quero}}">
-                                            <button class="w3-button w3-white w3-border w3-border-green w3-padding-small"  type="button" title="Lido" onclick="mudaEstante('{{$form_quero}}','{{$estante_quero}}',2)"><i class="fa fa-bookmark w3-text-green"></i></button>
-                                            <button class="w3-button w3-white w3-border w3-border-red w3-padding-small"  type="button" title="Lendo" onclick="mudaEstante('{{$form_quero}}','{{$estante_quero}}',3)"><i class="fa fa-bookmark w3-text-red"></i></button>
-                                            <button class="w3-button w3-white w3-border w3-border-red w3-padding-small "  type="button" title="Excluir" onclick="mudaEstante('{{$form_quero}}','{{$estante_quero}}',4)"><i class="fa fa-remove w3-text-red"></i></button>
-                                        </form>
+                                @if($dono)
+                                <div class="w3-display-bottomleft">
+                                    <div class="w3-tooltip w3-bar">
+                                        <button class="w3-button w3-white w3-border w3-border-blue w3-padding-small" title="Quero ler"><i class="fa fa-bookmark w3-text-blue"></i></button>
+                                        <div class="w3-text w3-animate-fade">
+                                            <form id="{{$form_quero}}" action="{{route('trocaEstante')}}" method="post">
+                                                {{ csrf_field() }}
+                                                <input name="livro_id" type="hidden" value="{{$livro->livro_id}}">
+                                                <input name="estante" type="hidden" id="{{$estante_quero}}">
+                                                <button class="w3-button w3-white w3-border w3-border-green w3-padding-small"  type="button" title="Lido" onclick="mudaEstante('{{$form_quero}}','{{$estante_quero}}',2)"><i class="fa fa-bookmark w3-text-green"></i></button>
+                                                <button class="w3-button w3-white w3-border w3-border-red w3-padding-small"  type="button" title="Lendo" onclick="mudaEstante('{{$form_quero}}','{{$estante_quero}}',3)"><i class="fa fa-bookmark w3-text-red"></i></button>
+                                                <button class="w3-button w3-white w3-border w3-border-red w3-padding-small "  type="button" title="Excluir" onclick="mudaEstante('{{$form_quero}}','{{$estante_quero}}',4)"><i class="fa fa-remove w3-text-red"></i></button>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
+                                @endif
                             </div>
-                        </div>
                         @endif
                     @endforeach
                     </div>
@@ -133,22 +141,24 @@ $linha_red = 'w3-border-white';
                                 <div class="w3-display-topleft w3-text-white w3-black w3-opacity" style="text-shadow:1px 1px 0 #444">
                                     <p>{{$livro->titulo}}</p>
                                 </div>
-                            <div class="w3-display-bottomleft">
-                                <div class="w3-tooltip w3-bar">
-                                    <button class="w3-button w3-white w3-border w3-border-green w3-padding-small" title="Lido"><i class="fa fa-bookmark w3-text-green"></i></button>
-                                    <div class="w3-text w3-animate-fade">
-                                        <form id="{{$form_lido}}" action="{{route('trocaEstante')}}" method="post">
-                                            {{ csrf_field() }}
-                                            <input name="livro_id" type="hidden" value="{{$livro->livro_id}}">
-                                            <input name="estante" type="hidden" id="{{$estante_green}}">
-                                            <button class="w3-button w3-white w3-border w3-border-blue w3-padding-small" type="button"   title="Quero ler" onclick="mudaEstante('{{$form_lido}}','{{$estante_green}}',1)"><i class="fa fa-bookmark w3-text-blue"></i></button>
-                                            <button class="w3-button w3-white w3-border w3-border-red w3-padding-small" type="button"   title="Lendo" onclick="mudaEstante('{{$form_lido}}','{{$estante_green}}',3)"><i class="fa fa-bookmark w3-text-red"></i></button>
-                                            <button class="w3-button w3-white w3-border w3-border-red w3-padding-small "  type="button" title="Excluir" onclick="mudaEstante('{{$form_lido}}','{{$estante_green}}',4)"><i class="fa fa-remove w3-text-red"></i></button>
-                                        </form>
+                                @if($dono)
+                                <div class="w3-display-bottomleft">
+                                    <div class="w3-tooltip w3-bar">
+                                        <button class="w3-button w3-white w3-border w3-border-green w3-padding-small" title="Lido"><i class="fa fa-bookmark w3-text-green"></i></button>
+                                        <div class="w3-text w3-animate-fade">
+                                            <form id="{{$form_lido}}" action="{{route('trocaEstante')}}" method="post">
+                                                {{ csrf_field() }}
+                                                <input name="livro_id" type="hidden" value="{{$livro->livro_id}}">
+                                                <input name="estante" type="hidden" id="{{$estante_green}}">
+                                                <button class="w3-button w3-white w3-border w3-border-blue w3-padding-small" type="button"   title="Quero ler" onclick="mudaEstante('{{$form_lido}}','{{$estante_green}}',1)"><i class="fa fa-bookmark w3-text-blue"></i></button>
+                                                <button class="w3-button w3-white w3-border w3-border-red w3-padding-small" type="button"   title="Lendo" onclick="mudaEstante('{{$form_lido}}','{{$estante_green}}',3)"><i class="fa fa-bookmark w3-text-red"></i></button>
+                                                <button class="w3-button w3-white w3-border w3-border-red w3-padding-small "  type="button" title="Excluir" onclick="mudaEstante('{{$form_lido}}','{{$estante_green}}',4)"><i class="fa fa-remove w3-text-red"></i></button>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
+                                @endif
                             </div>
-                        </div>
                         @endif
                     @endforeach
                 </div>
@@ -164,22 +174,24 @@ $linha_red = 'w3-border-white';
                                 <div class="w3-display-topleft w3-text-white w3-black w3-opacity" style="text-shadow:1px 1px 0 #444">
                                     <p>{{$livro->titulo}}</p>
                                 </div>
-                            <div class="w3-display-bottomleft">
-                                <div class="w3-tooltip w3-bar">
-                                    <button class="w3-button w3-white w3-border w3-border-red w3-padding-small" title="Lendo"><i class="fa fa-bookmark w3-text-red"></i></button>
-                                    <div class="w3-text w3-animate-fade">
-                                        <form id="{{$form_lendo}}" action="{{route('trocaEstante')}}" method="post">
-                                            {{ csrf_field() }}
-                                            <input name="livro_id" type="hidden" value="{{$livro->livro_id}}">
-                                            <input name="estante" type="hidden" id="{{$estante_red}}">
-                                            <button class="w3-button w3-white w3-border w3-border-blue w3-padding-small"  type="button"  title="Quero ler" onclick="mudaEstante('{{$form_lendo}}','{{$estante_red}}',1)"><i class="fa fa-bookmark w3-text-blue"></i></button>
-                                            <button class="w3-button w3-white w3-border w3-border-green w3-padding-small"   type="button" title="Lidos" onclick="mudaEstante('{{$form_lendo}}','{{$estante_red}}',2)"><i class="fa fa-bookmark w3-text-green"></i></button>
-                                            <button class="w3-button w3-white w3-border w3-border-red w3-padding-small "  type="button" title="Excluir" onclick="mudaEstante('{{$form_lendo}}','{{$estante_red}}',4)"><i class="fa fa-remove w3-text-red"></i></button>
-                                        </form>
+                                @if($dono)
+                                <div class="w3-display-bottomleft">
+                                    <div class="w3-tooltip w3-bar">
+                                        <button class="w3-button w3-white w3-border w3-border-red w3-padding-small" title="Lendo"><i class="fa fa-bookmark w3-text-red"></i></button>
+                                        <div class="w3-text w3-animate-fade">
+                                            <form id="{{$form_lendo}}" action="{{route('trocaEstante')}}" method="post">
+                                                {{ csrf_field() }}
+                                                <input name="livro_id" type="hidden" value="{{$livro->livro_id}}">
+                                                <input name="estante" type="hidden" id="{{$estante_red}}">
+                                                <button class="w3-button w3-white w3-border w3-border-blue w3-padding-small"  type="button"  title="Quero ler" onclick="mudaEstante('{{$form_lendo}}','{{$estante_red}}',1)"><i class="fa fa-bookmark w3-text-blue"></i></button>
+                                                <button class="w3-button w3-white w3-border w3-border-green w3-padding-small"   type="button" title="Lidos" onclick="mudaEstante('{{$form_lendo}}','{{$estante_red}}',2)"><i class="fa fa-bookmark w3-text-green"></i></button>
+                                                <button class="w3-button w3-white w3-border w3-border-red w3-padding-small "  type="button" title="Excluir" onclick="mudaEstante('{{$form_lendo}}','{{$estante_red}}',4)"><i class="fa fa-remove w3-text-red"></i></button>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
+                                @endif
                             </div>
-                        </div>
                         @endif
                     @endforeach
                 </div>

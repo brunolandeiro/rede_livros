@@ -17,7 +17,7 @@ Route::get('/welcome', function () {
 
 Auth::routes();
 
-Route::get('home', 'HomeController@index')->name('home');
+Route::get('perfil/{perfil_id}', 'HomeController@index')->name('perfil');
 Route::post('UpdatePerfil', 'HomeController@UpdatePerfil')->name('UpdatePerfil');
 Route::post('AddLivro', 'HomeController@AddLivro')->name('AddLivro');
 Route::post('trocaEstante', 'HomeController@trocaEstante')->name('trocaEstante');
@@ -25,4 +25,4 @@ Route::post('trocaEstante', 'HomeController@trocaEstante')->name('trocaEstante')
 Route::get('livro/{livro_id}/{usuario_id}', 'LivroController@index')->name('livro');
 
 
-Route::get('/', 'index@index');
+Route::get('/', 'HomeController@index');

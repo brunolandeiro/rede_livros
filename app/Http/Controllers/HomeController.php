@@ -23,12 +23,19 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($perfil_id = null)
     {
-        $usuario = Auth::user();
+        if($perfil_id){
+            $usuario = \App\User::where('id', $perfil_id)->first();
+            $dono = false;
+        }else{
+            $usuario = Auth::user();
+            $dono = true;
+        }
+
         if($usuario->img_ativa){
             $img = \App\Img_perfil::where('id_img_perfil',$usuario->img_ativa)->first();
-            $img_nome = $img->nome_img;
+            $img_nome = asset($img->nome_img);
         }
         else{
             $img_nome = asset('/W3.CSS/avatar3.png');
@@ -37,7 +44,8 @@ class HomeController extends Controller
         return view('home',[],[
             'usuario'=>$usuario,
             'img'=> $img_nome,
-            'livros' => $livros
+            'livros' => $livros,
+            'dono' => $dono
         ]);
     }
 
