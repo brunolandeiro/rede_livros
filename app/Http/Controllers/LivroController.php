@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 class LivroController extends Controller
 {
     /**
@@ -35,10 +35,13 @@ class LivroController extends Controller
         /* Get livro */
         $livro = \App\Livro::where('livro_id', $livro_id)->first();
 
+        /* Verifica se o usuario logado é o dono do livro */
+        $dono = $usuario == Auth::user();
         return view('livro',[],[
             'usuario'=>$usuario,
             'img'=> $img_nome,
-            'livro' => $livro
+            'livro' => $livro,
+            'dono' => $dono
         ]);
     }
 }

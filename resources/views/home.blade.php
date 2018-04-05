@@ -13,7 +13,7 @@ $linha_red = 'w3-border-white';
 
 @if(session('estante_atual'))
     @php
-        $display_blue = session('estante_atual') == 1 ? 'display:block' : 'display:none';
+        $display_blue = session('estante_atual') == 1 || session('estante_atual') == 4 ? 'display:block' : 'display:none';
         $display_green = session('estante_atual') == 2 ? 'display:block' : 'display:none';
         $display_red = session('estante_atual') == 3 ? 'display:block' : 'display:none';
 
@@ -41,7 +41,7 @@ $linha_red = 'w3-border-white';
     <!-- Left Column -->
     <div class="w3-col m3">
         <!-- Profile / resources/views/box_profile.blade.php -->
-        @include('box_profile')
+        @include('box_profile_dono')
         <!-- END Profile -->
     </div>
     <!-- END Left Column -->
@@ -112,6 +112,7 @@ $linha_red = 'w3-border-white';
                                             <input name="estante" type="hidden" id="{{$estante_quero}}">
                                             <button class="w3-button w3-white w3-border w3-border-green w3-padding-small"  type="button" title="Lido" onclick="mudaEstante('{{$form_quero}}','{{$estante_quero}}',2)"><i class="fa fa-bookmark w3-text-green"></i></button>
                                             <button class="w3-button w3-white w3-border w3-border-red w3-padding-small"  type="button" title="Lendo" onclick="mudaEstante('{{$form_quero}}','{{$estante_quero}}',3)"><i class="fa fa-bookmark w3-text-red"></i></button>
+                                            <button class="w3-button w3-white w3-border w3-border-red w3-padding-small "  type="button" title="Excluir" onclick="mudaEstante('{{$form_quero}}','{{$estante_quero}}',4)"><i class="fa fa-remove w3-text-red"></i></button>
                                         </form>
                                     </div>
                                 </div>
@@ -142,6 +143,7 @@ $linha_red = 'w3-border-white';
                                             <input name="estante" type="hidden" id="{{$estante_green}}">
                                             <button class="w3-button w3-white w3-border w3-border-blue w3-padding-small" type="button"   title="Quero ler" onclick="mudaEstante('{{$form_lido}}','{{$estante_green}}',1)"><i class="fa fa-bookmark w3-text-blue"></i></button>
                                             <button class="w3-button w3-white w3-border w3-border-red w3-padding-small" type="button"   title="Lendo" onclick="mudaEstante('{{$form_lido}}','{{$estante_green}}',3)"><i class="fa fa-bookmark w3-text-red"></i></button>
+                                            <button class="w3-button w3-white w3-border w3-border-red w3-padding-small "  type="button" title="Excluir" onclick="mudaEstante('{{$form_lido}}','{{$estante_green}}',4)"><i class="fa fa-remove w3-text-red"></i></button>
                                         </form>
                                     </div>
                                 </div>
@@ -172,6 +174,7 @@ $linha_red = 'w3-border-white';
                                             <input name="estante" type="hidden" id="{{$estante_red}}">
                                             <button class="w3-button w3-white w3-border w3-border-blue w3-padding-small"  type="button"  title="Quero ler" onclick="mudaEstante('{{$form_lendo}}','{{$estante_red}}',1)"><i class="fa fa-bookmark w3-text-blue"></i></button>
                                             <button class="w3-button w3-white w3-border w3-border-green w3-padding-small"   type="button" title="Lidos" onclick="mudaEstante('{{$form_lendo}}','{{$estante_red}}',2)"><i class="fa fa-bookmark w3-text-green"></i></button>
+                                            <button class="w3-button w3-white w3-border w3-border-red w3-padding-small "  type="button" title="Excluir" onclick="mudaEstante('{{$form_lendo}}','{{$estante_red}}',4)"><i class="fa fa-remove w3-text-red"></i></button>
                                         </form>
                                     </div>
                                 </div>

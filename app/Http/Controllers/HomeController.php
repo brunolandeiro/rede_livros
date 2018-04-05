@@ -75,21 +75,21 @@ class HomeController extends Controller
         $data['user_fk'] = $usuario->id;
         $data['titulo'] = $request->titulo;
         $data['autor'] = $request->autor;
-        $img = $this->BuscaImg($request->titulo, $request->autor);
-        if(count($img) > 1){
-            $data['img'] = $img['1'];
-        }else{
-            $data['img'] = "https://cache.fluxo.info/data/9a/ee/9aeea7953314d2c0adc0745eceda38fa3593c143/acolhimentoemrede.org.br/site/wp-content/themes/acolhimento/images/icons/book.png";
-        }
+        $info_livro = $this->BuscaInfoLivro($request->titulo, $request->autor);
+        $data['img'] = $info_livro['img'];
+        $data['descricao'] = $info_livro['desc'];
+
         \App\Livro::create($data);
         return redirect('home');
     }
 
     //Busca uma imagem a partir do titulo de um livro
-    private function BuscaImg($titulo, $autor){
+    private function BuscaInfoLivro($titulo, $autor){
+        $info_livro = array('img'=>"https://cache.fluxo.info/data/9a/ee/9aeea7953314d2c0adc0745eceda38fa3593c143/acolhimentoemrede.org.br/site/wp-content/themes/acolhimento/images/icons/book.png",'desc'=>'Sem descrição');
         $titulo = str_replace(" ", "+", $titulo);
         $autor = str_replace(" ", "+", $autor);
-        $url = 'http://lelivros.love/?x=0&y=0&s='.$titulo.'+'.$autor;
+        $url = 'http://lelivros.love/?x=0&y=0&s='.$titulo;
+
         //Pega o conteudo da pagina
         $pagina_sitring = file_get_contents($url);
 
@@ -98,23 +98,37 @@ class HomeController extends Controller
 
         //get primeiro item de lista
         $regex = '/<li class="post-17105 product type-product status-publish has-post-thumbnail hentry first instock">(.+?)<\/li>/';
-        preg_match($regex, $pagina_sitring, $matches);
+        preg_match($regex, $pagina_sitring, $primeiro_item_da_lista);
 
         //get link para a imagem do primeiro link
-        if(count($matches) > 1){
-            $regex = '/src="(.+?)"/';
-            preg_match($regex, $matches[1], $src);
-        }else{
-            $src = null;
+        if(count($primeiro_item_da_lista) > 1){
+            //Pega o src da img
+            $regex_img = '/src="(.+?)"/';
+            preg_match($regex_img, $primeiro_item_da_lista[1], $src);
+
+            //Pega href da pagina interna do livro
+            $regex_url_interno = '/href="(.+?)"/';
+            preg_match($regex_url_interno, $primeiro_item_da_lista[1], $url_interno);
+            //Conteudo da pagina interna do livro
+            $pagina_interna_livro = file_get_contents($url_interno[1]);
+            //Limpa as quebras de linha
+            $pagina_interna_livro = preg_replace( "/\r|\n/", "", $pagina_interna_livro);
+
+            //get descrição do livro
+            $regex_descricao_completo = '/<div class="panel entry-content" id="tab-description" style="display: block;">(.+?)<\/div>/';
+            preg_match($regex_descricao_completo, $pagina_interna_livro, $descricao);
+            $descricao[1] = str_replace("<h2>Descrição do livro</h2>","",$descricao[1]);
+            $info_livro['desc'] = html_entity_decode($descricao[1]);
+            $info_livro['img'] = $src[1];
         }
 
-        return $src;
+        return $info_livro;
     }
 
     public function trocaEstante(Request $request){
         $msg_erro = 'Estamos com problemas para realizar a operação. Tente novamente mais tarde.';
         $validator = Validator::make($request->all(), [
-            'estante' => 'required|numeric|max:3|min:1',
+            'estante' => 'required|numeric|max:4|min:1',
             'livro_id' => 'required|numeric|min:1'
         ], [
             'estante.required' => $msg_erro,
