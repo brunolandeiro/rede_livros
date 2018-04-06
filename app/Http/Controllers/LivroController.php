@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Validator;
 class LivroController extends Controller
 {
     /**
@@ -30,18 +31,67 @@ class LivroController extends Controller
             $img_nome = asset($img->nome_img);
         }
         else{
-            $img_nome = asset('/W3.CSS/avatar3.png');
+            $img_nome = asset('/W3.CSS/default-avatar.jpg');
         }
         /* Get livro */
         $livro = \App\Livro::where('livro_id', $livro_id)->first();
 
         /* Verifica se o usuario logado é o dono do livro */
         $dono = $usuario == Auth::user();
-        return view('livro',[],[
+        return view('livro.livro',[],[
             'usuario'=>$usuario,
             'img'=> $img_nome,
             'livro' => $livro,
-            'dono' => $dono
+            'dono' => $dono,
+            'perfil_id' => $usuario_id
         ]);
+    }
+
+    public function editLivro($livro_id){
+        $livro = \App\Livro::where('livro_id', $livro_id)->first();
+        if(!$livro){
+            return redirect()->action('HomeController@index')->with('erro','Não encontramos a página requisitada!');
+        }
+        $usuario = $livro->usuario;
+        if($usuario != Auth::user()){
+            return redirect()->action('HomeController@index')->with('erro','Você não tem acesso a esse livro');
+        }
+        $img_nome = GetAvatarUsuario($usuario);
+
+        return view('livro.editLivro',[],[
+            'livro'=>$livro,
+            'usuario'=>$usuario,
+            'img'=> $img_nome,
+            'dono' => true,
+            'perfil_id' => $usuario->id
+        ]);
+    }
+
+    public function update(Request $request){
+        $validator = Validator::make($request->all(),
+        [
+            'img_livro' => 'image',
+            'titulo' => 'required|max:200',
+            'autor' => 'max:100',
+            'descricao' => 'max:2000',
+        ],
+        [
+            'img_livro.image' => 'O arquivo deve ser uma imagem.',
+            'titulo.required' => 'O campo título é obrigatório',
+            'titulo.max' => 'O campo título deve ter no máximo :max caracteres.',
+            'autor.max' => 'O campo Autor deve ter no máximo :max caracteres.',
+            'descricao.max' => 'O campo Descrição deve ter no máximo :max caracteres.',
+        ]);
+        $teste= $request->livro_id;
+        if ($validator->fails()) {
+            $url = '/livro/editar/'.$request->livro_id;
+            return redirect($url)->withErrors($validator)->withInput();
+        }
+        $data['titulo'] = $request->titulo;
+        $data['autor'] = $request->autor;
+        $data['descricao'] = $request->descricao;
+        \App\Livro::where('livro_id',$request->livro_id)->update($data);
+        $redirect = '/livro/mostrar/'.$request->livro_id.'/'.Auth::user()->id;
+        return redirect($redirect)->with('success','Livro alterado com sucesso!');
     }
 }

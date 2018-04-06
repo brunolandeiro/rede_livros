@@ -167,6 +167,7 @@ return [
          * Package Service Providers...
          */
         Laravel\Tinker\TinkerServiceProvider::class,
+        browner12\helpers\HelperServiceProvider::class,
 
         /*
          * Application Service Providers...

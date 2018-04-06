@@ -55,19 +55,19 @@ $linha_red = 'w3-border-white';
             <!-- Box form titulo e autor -->
             <div class="w3-row">
                 <div class="w3-col m12">
-                    <div class="w3-card w3-round w3-white w3-margin-bottom w3-margin-left">
+                    <div class="w3-card w3-round w3-white w3-margin-bottom w3-margin-left w3-margin-right">
                         <div class="w3-container w3-padding">
                             <h6 class="w3-opacity">Adicione um livro a sua estante!</h6>
                             <form method="post" action="{{route('AddLivro')}}">
                                 {{ csrf_field() }}
                                 <input class="w3-input" type="text" name="titulo" value="{{old('titulo')}}" placeholder="Título" request>
-                                @if ($errors->has('titulo'))
+                                <!-- @if ($errors->has('titulo'))
                                 <div class="w3-panel w3-pale-red w3-round w3-text-red">
                                     <strong>{{ $errors->first('titulo') }}</strong>
                                 </div>
-                                @endif
+                                @endif -->
                                 <input class="w3-input" type="text" name="autor" value="{{old('autor')}}" placeholder="Autor">
-                                <button type="submit" class="w3-button w3-theme w3-right">Adicionar</button>
+                                <br><button type="submit" class="w3-button w3-theme w3-right">Adicionar</button>
                             </form>
                         </div>
                     </div>
@@ -76,15 +76,24 @@ $linha_red = 'w3-border-white';
             <!--End Box form titulo e autor -->
             @endif
             <!-- Tabs estante de livros -->
-            @if ($errors->any())
-                @foreach ($errors->all() as $error)
-                <div class="w3-panel w3-pale-red w3-round w3-text-red w3-margin">
-                    <strong>{{ $error }}</strong>
-                </div>
-                <?php break ?>
-                @endforeach
+            @if (session('alerta'))
+            <div class="w3-panel w3-pale-green w3-round w3-text-green w3-margin">
+                <p style="font-size: 18px;">Livro cadastrado com sucesso! <i class="fa fa-smile-o"></i></p>
+                <p> {{session('alerta')}}</p>
+            </div>
             @endif
-            <div class="w3-card w3-white w3-round w3-margin-left">
+            @if ($errors->all())
+            <div class="w3-panel w3-pale-red w3-round w3-text-red w3-margin">
+                <p style="font-size: 18px;"><i class="fa fa-exclamation-triangle"> </i>Ops!</p>
+                <ul>
+                @foreach ($errors->all() as $error)
+                    <li><strong>{{ $error }}</strong></li>
+                <?php //break ?>
+                @endforeach
+                <ul>
+            </div>
+            @endif
+            <div class="w3-card w3-white w3-round w3-margin-left w3-margin-right">
                 <a href="javascript:void(0)" onclick="openCity(event, 'London', 'blue');" class="w3-text-blue">
                     <div id="blue" class="w3-third tablink w3-bottombar  w3-hover-border-blue w3-padding {{$linha_blue}}"><i class="fa fa-bookmark fa-fw w3-margin-right "></i>Quero ler</div>
                 </a>
@@ -102,10 +111,10 @@ $linha_red = 'w3-border-white';
                         @php $form_quero = 'quero-'.$livro->livro_id; $estante_quero = 'blue-'.$livro->livro_id; @endphp
                         <div class="w3-third w3-display-container w3-margin w3-leftbar w3-rightbar w3-topbar w3-bottombar w3-hover-border-blue w3-round" style="width:25%">
 
-                                <a href="/livro/{{$livro->livro_id}}/{{$usuario->id}}">
+                                <a href="/livro/mostrar/{{$livro->livro_id}}/{{$usuario->id}}">
                                     <img src="{{$livro->img}}" style="width:100%" height="270">
                                 </a>
-                                <div class="w3-display-topleft w3-text-white w3-black w3-opacity" style="text-shadow:1px 1px 0 #444">
+                                <div class="w3-display-topleft w3-text-white w3-black w3-opacity" style="text-shadow:1px 1px 0 #444; width:100%;">
                                     <p>{{$livro->titulo}}</p>
                                 </div>
                                 @if($dono)
@@ -137,8 +146,10 @@ $linha_red = 'w3-border-white';
                         @if($livro->estante == 2)
                         @php $form_lido = 'lido-'.$livro->livro_id; $estante_green = 'green-'.$livro->livro_id; @endphp
                         <div class="w3-third w3-display-container w3-margin w3-leftbar w3-rightbar w3-topbar w3-bottombar w3-hover-border-green w3-round" style="width:25%">
-                                <img src="{{$livro->img}}" style="width:100%" height="270">
-                                <div class="w3-display-topleft w3-text-white w3-black w3-opacity" style="text-shadow:1px 1px 0 #444">
+                                <a href="/livro/mostrar/{{$livro->livro_id}}/{{$usuario->id}}">
+                                    <img src="{{$livro->img}}" style="width:100%" height="270">
+                                </a>
+                                <div class="w3-display-topleft w3-text-white w3-black w3-opacity" style="text-shadow:1px 1px 0 #444; width:100%;">
                                     <p>{{$livro->titulo}}</p>
                                 </div>
                                 @if($dono)
@@ -169,9 +180,10 @@ $linha_red = 'w3-border-white';
                         @if($livro->estante == 3)
                         @php $form_lendo = 'lendo-'.$livro->livro_id; $estante_red = 'red-'.$livro->livro_id; @endphp
                         <div class="w3-third w3-display-container w3-margin w3-leftbar w3-rightbar w3-topbar w3-bottombar w3-hover-border-red w3-round" style="width:25%">
-
-                                <img src="{{$livro->img}}" style="width:100%" height="270">
-                                <div class="w3-display-topleft w3-text-white w3-black w3-opacity" style="text-shadow:1px 1px 0 #444">
+                                <a href="/livro/mostrar/{{$livro->livro_id}}/{{$usuario->id}}">
+                                    <img src="{{$livro->img}}" style="width:100%" height="270">
+                                </a>
+                                <div class="w3-display-topleft w3-text-white w3-black w3-opacity" style="text-shadow:1px 1px 0 #444; width:100%;">
                                     <p>{{$livro->titulo}}</p>
                                 </div>
                                 @if($dono)

@@ -38,14 +38,15 @@ class HomeController extends Controller
             $img_nome = asset($img->nome_img);
         }
         else{
-            $img_nome = asset('/W3.CSS/avatar3.png');
+            $img_nome = asset('/W3.CSS/default-avatar.jpg');
         }
         $livros = \App\Livro::where("user_fk", $usuario->id)->orderBy('livro_id', 'desc')->get();
         return view('home',[],[
             'usuario'=>$usuario,
             'img'=> $img_nome,
             'livros' => $livros,
-            'dono' => $dono
+            'dono' => $dono,
+            'perfil_id' => $perfil_id
         ]);
     }
 
@@ -53,9 +54,14 @@ class HomeController extends Controller
     public function UpdatePerfil(Request $request){
         $usuario = Auth::user();
 
-        $data['profissao'] = $request->profissao;
-        $data['nascimento'] = $request->nascimento;
-
+        // $data['profissao'] = $request->profissao;
+        // $data['nascimento'] = $request->nascimento;
+        $validator = Validator::make($request->all(),
+        ['img_perfil' => 'image',],
+        ['img_perfil.image' => 'O arquivo deve ser uma imagem.']);
+        if ($validator->fails()) {
+            return redirect('/')->withErrors($validator)->withInput();
+        }
         $file = $request->file('img_perfil');
         if ($request->hasFile('img_perfil')) {
             if ($file->isValid()) {
@@ -71,13 +77,22 @@ class HomeController extends Controller
 
         \App\User::where('id', $usuario->id)->update($data);
 
-        return redirect('home');
+        return redirect('/');
     }
 
     public function AddLivro(Request $request){
-        $validator = Validator::make($request->all(), ['titulo' => 'required'], ['titulo.required' => 'O campo Título é obrigatório.']);
+        $validator = Validator::make($request->all(),
+        [
+            'titulo' => 'required|max:200',
+            'autor' => 'max:100'
+        ],
+        [
+            'titulo.required' => 'O campo Título é obrigatório.',
+            'titulo.max' => 'O campo Título deve ter no máximo :max caracteres.',
+            'autor.max' => 'O campo Autor deve ter no máximo :max  caracteres.',
+        ]);
         if ($validator->fails()) {
-            return redirect('home')->withErrors($validator)->withInput();
+            return redirect('/')->withErrors($validator)->withInput();
         }
         $usuario = Auth::user();
         $data['user_fk'] = $usuario->id;
@@ -88,7 +103,7 @@ class HomeController extends Controller
         $data['descricao'] = $info_livro['desc'];
 
         \App\Livro::create($data);
-        return redirect('home');
+        return redirect('/')->with('alerta','O seu livro não é esse?? É só clicar no livro é editar as informações.');
     }
 
     //Busca uma imagem a partir do titulo de um livro
@@ -146,11 +161,11 @@ class HomeController extends Controller
             'livro_id.min' => $msg_erro
         ]);
         if ($validator->fails()) {
-            return redirect('home')->withErrors($validator)->withInput();
+            return redirect('/')->withErrors($validator)->withInput();
         }
         $data['estante'] = $request->estante;
         $id = $request->livro_id;
         \App\Livro::where('livro_id', $request->livro_id)->update($data);
-        return redirect('home')->with('estante_atual', $request->estante);
+        return redirect('/')->with('estante_atual', $request->estante);
     }
 }

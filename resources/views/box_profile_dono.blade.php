@@ -19,14 +19,25 @@
                         <div class="w3-section">
                             <input type="file" id="img_perfil" name="img_perfil" accept="image/*">
                             <br>
+                            @if ($errors->all())
+                            <div class="w3-panel w3-pale-red w3-round w3-text-red w3-margin">
+                                <p style="font-size: 14px;"><i class="fa fa-exclamation-triangle"> </i>Ops!</p>
+                                <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li><strong>{{ $error }}</strong></li>
+                                <?php //break ?>
+                                @endforeach
+                                <ul>
+                            </div>
+                            @endif
 
-                            <label class="w3-text-theme" >Qual é a sua Profissão? <i class="fa fa-briefcase fa-fw w3-margin-right"></i></label>
+                            <!-- <label class="w3-text-theme" >Qual é a sua Profissão? <i class="fa fa-briefcase fa-fw w3-margin-right"></i></label>
                             <input class="w3-input" type="text" name="profissao" value="{{old('profissao') ? old('profissao') : $usuario->profissao}}">
 
                             <label class="w3-text-theme" >Em que ano você nasceu? <i class="fa fa-birthday-cake fa-fw w3-margin-right"></i></label>
-                            <input class="w3-input" type="date" name="nascimento" value="{{old('nascimento') ? old('nascimento') : $usuario->nascimento}}">
+                            <input class="w3-input" type="date" name="nascimento" value="{{old('nascimento') ? old('nascimento') : $usuario->nascimento}}"> -->
 
-                            <button class="w3-button w3-block w3-theme-l1 w3-section w3-padding" type="submit">Editar</button>
+                            <button class="w3-button w3-block w3-theme-l1 w3-section w3-padding" type="submit">Enviar</button>
                         </div>
                     </form>
                 </div>
@@ -35,10 +46,10 @@
             <!-- END Modal imagem perfil -->
         </p>
         <hr>
-        <p><i class="fa fa-briefcase fa-fw w3-margin-right w3-text-theme"></i>{{$usuario->profissao}}</p>
+        <!-- <p><i class="fa fa-briefcase fa-fw w3-margin-right w3-text-theme"></i>{{$usuario->profissao}}</p>
         <p><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i>{{date('d/m/Y', strtotime($usuario->nascimento))}}</p>
         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>
-            <a href="#" onclick="document.getElementById('id01').style.display='block'">Alterar informações</a>
+            <a href="#" onclick="document.getElementById('id01').style.display='block'">Alterar informações</a> -->
         </div>
     </div>
     <br>

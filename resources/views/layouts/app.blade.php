@@ -19,9 +19,12 @@
     <link rel="stylesheet" href="{{asset('/W3.CSS/font-awesome.min.css')}}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-    <link rel="stylesheet" href="{{asset('/Croppie/croppie.css')}}">
-    <script src="{{asset('/Croppie/croppie.js')}}"></script>
+    <!-- wysihtml5 parser rules -->
+    <script src="{{asset('/wysihtml5/parser_rules/advanced.js')}}"></script>
+    <!-- Library -->
+    <script src="{{asset('/wysihtml5/dist/wysihtml5-0.3.0.min.js')}}"></script>
+    <link rel="stylesheet" href="{{asset('/wysihtml5/examples/css/stylesheet.css')}}">
+    <link rel="stylesheet" href="{{asset('/css/editor.css')}}">
     <style>
     html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
 
@@ -36,7 +39,7 @@
         <div class="w3-top">
          <div class="w3-bar w3-theme-d2 w3-left-align w3-large">
           <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-theme-d2" href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a>
-          <a href="/home" class="w3-bar-item w3-button w3-padding-large w3-theme-d4"><i class="fa fa-home w3-margin-right"></i><b>Rede</b>Social</a>
+          <a href="/" class="w3-bar-item w3-button w3-padding-large w3-theme-d4"><i class="fa fa-home w3-margin-right"></i><b>Minha</b>Estante</a>
 
 
           @if (Auth::guest())
@@ -64,7 +67,7 @@
           </div>
           <div class="w3-dropdown-hover w3-hide-small w3-right">
             <button class="w3-button w3-padding-large" title="My Account">
-                <img src="{{asset('/W3.CSS/avatar2.png')}}" class="w3-circle" style="height:23px;width:23px" alt="Avatar">
+                <img src="{{$img}}" class="w3-circle" style="height:23px;width:23px" alt="Avatar">
                 {{ Auth::user()->name }} <span class="caret"></span>
             </button>
             <div class="w3-dropdown-content w3-card-4 w3-bar-block" style="width:300px">
@@ -126,6 +129,13 @@
             x.className = x.className.replace(" w3-show", "");
         }
     }
+    </script>
+    <script>
+        var editor = new wysihtml5.Editor("wysihtml5-textarea", { // id of textarea element
+            toolbar:      "wysihtml5-toolbar", // id of toolbar element
+            parserRules:  wysihtml5ParserRules, // defined in parser rules set
+            stylesheets: ["{{asset('css/editor.css')}}"]
+        });
     </script>
 </body>
 </html>
