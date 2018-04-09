@@ -216,9 +216,7 @@ $linha_red = 'w3-border-white';
         <!-- End Middle Column -->
     </div>
     <!-- END ROW -->
-    <!-- javascript -->
-    <script src="{{asset('/js/home.js')}}"></script>
-    <!-- END javascript -->
+
 </div>
 
 @endsection

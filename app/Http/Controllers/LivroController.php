@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Validator;
+
 class LivroController extends Controller
 {
     /**
@@ -74,19 +75,14 @@ class LivroController extends Controller
             'titulo' => 'required|max:200',
             'autor' => 'max:100',
             'descricao' => 'max:2000',
-        ],
-        [
-            'img_livro.image' => 'O arquivo deve ser uma imagem.',
-            'titulo.required' => 'O campo título é obrigatório',
-            'titulo.max' => 'O campo título deve ter no máximo :max caracteres.',
-            'autor.max' => 'O campo Autor deve ter no máximo :max caracteres.',
-            'descricao.max' => 'O campo Descrição deve ter no máximo :max caracteres.',
-        ]);
+        ],mensagens_de_erro('Livro'));
+
         $teste= $request->livro_id;
         if ($validator->fails()) {
             $url = '/livro/editar/'.$request->livro_id;
             return redirect($url)->withErrors($validator)->withInput();
         }
+
         $data['titulo'] = $request->titulo;
         $data['autor'] = $request->autor;
         $data['descricao'] = $request->descricao;

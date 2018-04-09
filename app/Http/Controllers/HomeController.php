@@ -85,12 +85,7 @@ class HomeController extends Controller
         [
             'titulo' => 'required|max:200',
             'autor' => 'max:100'
-        ],
-        [
-            'titulo.required' => 'O campo Título é obrigatório.',
-            'titulo.max' => 'O campo Título deve ter no máximo :max caracteres.',
-            'autor.max' => 'O campo Autor deve ter no máximo :max  caracteres.',
-        ]);
+        ],mensagens_de_erro('Livro'));
         if ($validator->fails()) {
             return redirect('/')->withErrors($validator)->withInput();
         }
@@ -153,13 +148,7 @@ class HomeController extends Controller
         $validator = Validator::make($request->all(), [
             'estante' => 'required|numeric|max:4|min:1',
             'livro_id' => 'required|numeric|min:1'
-        ], [
-            'estante.required' => $msg_erro,
-            'estante.max' => $msg_erro,
-            'estante.min' => $msg_erro,
-            'livro_id.required' => $msg_erro,
-            'livro_id.min' => $msg_erro
-        ]);
+        ], mensagens_de_erro('trocaEstante'));
         if ($validator->fails()) {
             return redirect('/')->withErrors($validator)->withInput();
         }

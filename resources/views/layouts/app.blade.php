@@ -25,12 +25,14 @@
     <script src="{{asset('/wysihtml5/dist/wysihtml5-0.3.0.min.js')}}"></script>
     <link rel="stylesheet" href="{{asset('/wysihtml5/examples/css/stylesheet.css')}}">
     <link rel="stylesheet" href="{{asset('/css/editor.css')}}">
+    <link rel="stylesheet" href="{{asset('/css/meu.css')}}">
     <style>
     html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
 
     img.img_perfil:hover {
         opacity: 0.5;
     }
+
     </style>
 </head>
 <body class="w3-theme-l5">
@@ -105,6 +107,10 @@
     </div>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+
+    <!-- javascript -->
+    <script src="{{asset('/js/home.js')}}"></script>
+    <!-- END javascript -->
 
     <script>
     // Accordion
