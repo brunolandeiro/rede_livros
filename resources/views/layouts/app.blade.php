@@ -19,10 +19,11 @@
     <link rel="stylesheet" href="{{asset('/W3.CSS/font-awesome.min.css')}}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <link href="{{asset('select2/dist/css/select2.min.css')}}" rel="stylesheet" />
     <!-- wysihtml5 parser rules -->
-    <script src="{{asset('/wysihtml5/parser_rules/advanced.js')}}"></script>
+
     <!-- Library -->
-    <script src="{{asset('/wysihtml5/dist/wysihtml5-0.3.0.min.js')}}"></script>
     <link rel="stylesheet" href="{{asset('/wysihtml5/examples/css/stylesheet.css')}}">
     <link rel="stylesheet" href="{{asset('/css/editor.css')}}">
     <link rel="stylesheet" href="{{asset('/css/meu.css')}}">
@@ -98,17 +99,21 @@
         <br>
 
         <!-- Footer -->
-        <div class="w3-bottom">
+        <!-- <div class="w3-bottom">
             <footer class="w3-container w3-theme-d5">
                 <p class="w3-right">Powered by <a href="#" target="_blank">link</a></p>
             </footer>
-        </div>
+        </div> -->
         <!-- /Footer -->
     </div>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/jquery-2.2.3.min.js') }}"></script>
 
     <!-- javascript -->
+    <script src="{{asset('select2/dist/js/select2.min.js')}}"></script>
+    <script src="{{asset('/wysihtml5/parser_rules/advanced.js')}}"></script>
+    <script src="{{asset('/wysihtml5/dist/wysihtml5-0.3.0.min.js')}}"></script>
     <script src="{{asset('/js/home.js')}}"></script>
     <!-- END javascript -->
 
@@ -135,6 +140,14 @@
             x.className = x.className.replace(" w3-show", "");
         }
     }
+
+    // In your Javascript (external .js resource or <script> tag)
+    $(document).ready(function() {
+        $('.js-example-basic-single').select2({
+            tags: true,
+            placeholder: 'Título'
+        });
+    });
     </script>
     <script>
         var editor = new wysihtml5.Editor("wysihtml5-textarea", { // id of textarea element

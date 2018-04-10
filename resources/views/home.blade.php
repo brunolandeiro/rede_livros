@@ -58,6 +58,12 @@ $linha_red = 'w3-border-white';
                     <div class="w3-card w3-round w3-white w3-margin-bottom w3-margin-left w3-margin-right">
                         <div class="w3-container w3-padding">
                             <h6 class="w3-opacity">Adicione um livro a sua estante!</h6>
+                            <select class="js-example-basic-single w3-input" name="state">
+                                <option value="{{$l->lelivros_id}}">{{$l->titulo}}</option>
+                                @foreach($lelivros as $l)
+                                    <option value="{{$l->lelivros_id}}">{{$l->titulo}}</option>
+                                @endforeach
+                            </select>
                             <form method="post" action="{{route('AddLivro')}}">
                                 {{ csrf_field() }}
                                 <input class="w3-input" type="text" name="titulo" value="{{old('titulo')}}" placeholder="Título" request>

@@ -41,12 +41,14 @@ class HomeController extends Controller
             $img_nome = asset('/W3.CSS/default-avatar.jpg');
         }
         $livros = \App\Livro::where("user_fk", $usuario->id)->orderBy('livro_id', 'desc')->get();
+        $lelivros = \App\Lelivros::all();
         return view('home',[],[
             'usuario'=>$usuario,
             'img'=> $img_nome,
             'livros' => $livros,
             'dono' => $dono,
-            'perfil_id' => $perfil_id
+            'perfil_id' => $perfil_id,
+            'lelivros' => $lelivros
         ]);
     }
 
