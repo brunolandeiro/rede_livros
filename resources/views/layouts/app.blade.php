@@ -145,7 +145,28 @@
     $(document).ready(function() {
         $('.js-example-basic-single').select2({
             tags: true,
-            placeholder: 'Título'
+            placeholder: 'Comece a digitar o Título',
+            allowClear: true,
+            minimumInputLength: 3,
+            ajax: {
+                url: '/busca-livro',
+                dataType: 'json',
+                data: function (params) {
+                    var query = {
+                        search: params.term,
+                    }
+
+                    // Query parameters will be ?search=[term]&type=public
+                    return query;
+                },
+                processResults: function (data) {
+                    // Tranforms the top-level key of the response object from 'items' to 'results'
+                    return {
+                        results: data
+                    }
+                }
+            }
+
         });
     });
     </script>

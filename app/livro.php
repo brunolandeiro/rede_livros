@@ -18,7 +18,7 @@ class Livro extends Model
     protected $primaryKey = 'livro_id';
     public $timestamps = false;
     protected $fillable = [
-        'titulo', 'autor', 'descricao', 'img', 'user_fk', 'estante'
+        'titulo', 'autor', 'descricao', 'img', 'user_fk', 'estante', 'lelivros_fk'
     ];
 
     public function usuario() {

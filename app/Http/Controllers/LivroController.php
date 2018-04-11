@@ -90,4 +90,21 @@ class LivroController extends Controller
         $redirect = '/livro/mostrar/'.$request->livro_id.'/'.Auth::user()->id;
         return redirect($redirect)->with('success','Livro alterado com sucesso!');
     }
+
+    public function busca_livro(){
+        $livros_array = array();
+        if(isset($_GET['search'])){
+            $titulo = $_GET['search'];
+            $titulo = '%'.$titulo.'%';
+            $livros = \App\Lelivros::where('titulo','LIKE',$titulo)->get();
+            if($livros){
+                foreach($livros as $livro){
+                    array_push($livros_array,['id'=>$livro->lelivros_id,'text'=>$livro->titulo]);
+                }
+            }
+        }
+
+        return response()
+            ->json($livros_array);
+    }
 }

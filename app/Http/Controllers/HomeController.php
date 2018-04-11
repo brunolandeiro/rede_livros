@@ -91,14 +91,22 @@ class HomeController extends Controller
         if ($validator->fails()) {
             return redirect('/')->withErrors($validator)->withInput();
         }
+
         $usuario = Auth::user();
         $data['user_fk'] = $usuario->id;
-        $data['titulo'] = $request->titulo;
-        $data['autor'] = $request->autor;
-        $info_livro = $this->BuscaInfoLivro($request->titulo, $request->autor);
-        $data['img'] = $info_livro['img'];
-        $data['descricao'] = $info_livro['desc'];
-
+        if(is_numeric($request->titulo)){
+            $lelivros = \App\Lelivros::where('lelivros_id',$request->titulo)->first();
+            $data['titulo'] = $lelivros->titulo;
+            $data['img'] = $lelivros->img;
+            $data['descricao'] = $lelivros->descricao;
+            $data['lelivros_fk'] = $request->titulo;
+        }else{
+            $data['titulo'] = $request->titulo;
+            $data['autor'] = $request->autor;
+            $info_livro = $this->BuscaInfoLivro($request->titulo, $request->autor);
+            $data['img'] = $info_livro['img'];
+            $data['descricao'] = $info_livro['desc'];
+        }
         \App\Livro::create($data);
         return redirect('/')->with('alerta','O seu livro não é esse?? É só clicar no livro é editar as informações.');
     }

@@ -25,6 +25,7 @@ Route::post('trocaEstante', 'HomeController@trocaEstante')->name('trocaEstante')
 Route::get('livro/mostrar/{livro_id}/{usuario_id}', 'LivroController@index')->name('livro');
 Route::get('livro/editar/{livro_id}', 'LivroController@editLivro')->name('editLivro');
 Route::post('livro/update', 'LivroController@update')->name('updateLivro');
+Route::get('busca-livro', 'LivroController@busca_livro');
 
 
 Route::get('/', 'HomeController@index');
