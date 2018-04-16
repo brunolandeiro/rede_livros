@@ -65,7 +65,7 @@ $linha_red = 'w3-border-white';
 
                                 </select>
                                 <!-- <input class="w3-input" type="text"  placeholder="Título" request> -->
-                                <input class="w3-input" type="text" name="autor" value="{{old('autor')}}" placeholder="Autor">
+                                <!-- <input class="w3-input" type="text" name="autor" value="{{old('autor')}}" placeholder="Autor"> -->
                                 <br><button type="submit" class="w3-button w3-theme w3-right">Adicionar</button>
                             </form>
                         </div>

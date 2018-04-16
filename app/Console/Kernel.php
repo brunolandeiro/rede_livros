@@ -15,6 +15,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         //
         Commands\get_livros::class,
+        Commands\get_musicas::class,
     ];
 
     /**

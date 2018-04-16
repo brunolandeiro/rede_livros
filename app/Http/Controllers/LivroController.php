@@ -99,7 +99,7 @@ class LivroController extends Controller
             $livros = \App\Lelivros::where('titulo','LIKE',$titulo)->get();
             if($livros){
                 foreach($livros as $livro){
-                    array_push($livros_array,['id'=>$livro->lelivros_id,'text'=>$livro->titulo]);
+                    array_push($livros_array,['id'=>$livro->lelivros_id,'text'=>$livro->titulo,'img'=>$livro->img]);
                 }
             }
         }

@@ -38,21 +38,21 @@ class get_livros extends Command
     public function handle()
     {
         $categorias = array(
-            "poesia",
-            "policial",
-            "psicologia"
+            "humor"
         );
-        $numero_de_paginas = 3;
+        $numero_de_paginas = 100;
+        $primeira_pagina = 49;
         foreach($categorias as $categoria){
 
-            for($i=0;$i<3;$i++){
+            for($i = $primeira_pagina; $i < $numero_de_paginas; $i++){
                 if($i==0){
                     $page="";
                 }else{
                     $page='page/'.$i.'/';
                 }
                 //$info_livro = array('img'=>"https://cache.fluxo.info/data/9a/ee/9aeea7953314d2c0adc0745eceda38fa3593c143/acolhimentoemrede.org.br/site/wp-content/themes/acolhimento/images/icons/book.png",'desc'=>'Sem descrição');
-                $url = 'http://lelivros.cricket/categoria/'.$categoria.'/'.$page;
+                // $url = 'http://lelivros.cricket/categoria/'.$categoria.'/'.$page;
+                 $url = 'http://lelivros.cricket/book/'.$page;
                 //Pega o conteudo da pagina
                 $pagina_sitring = file_get_contents($url);
                 //Limpa as quebras de linha
@@ -70,11 +70,16 @@ class get_livros extends Command
                     //Pega o src da img
                     $regex_img = '/src="(.+?)"/';
                     preg_match($regex_img, $item, $src);
-                    $livro['img'] = $src[1];
+                    $livro['img'] = isset($src[1]) ? $src[1] : 'https://cache.fluxo.info/data/9a/ee/9aeea7953314d2c0adc0745eceda38fa3593c143/acolhimentoemrede.org.br/site/wp-content/themes/acolhimento/images/icons/book.png';
                     //Pega o nome/autor do livro
                     $regex_nome = '/<h3>(.+?)<\/h3>/';
                     preg_match($regex_nome, $item, $nome);
-                    $livro['titulo'] = str_replace("&#8211;","–",$nome[1]);
+                    if(isset($nome[1])){
+                        $livro['titulo'] = str_replace("&#8211;","–",$nome[1]);
+                    }
+                    else {
+                        $livro['titulo'] = 'Erro - Sem nome';
+                    }
                     // $nome_e_autor = explode(" – ",$nome[1]);
                     // $livro['autor'] = $nome_e_autor[count($nome_e_autor)-1];
 
@@ -82,16 +87,16 @@ class get_livros extends Command
                     $regex_url_interno = '/href="(.+?)"/';
                     preg_match($regex_url_interno, $item, $url_interno);
                     //Conteudo da pagina interna do livro
-                    $pagina_interna_livro = file_get_contents($url_interno[1]);
-                    //Limpa as quebras de linha
-                    $pagina_interna_livro = preg_replace( "/\r|\n/", "", $pagina_interna_livro);
-
-                    //get descrição do livro
-                    $regex_descricao_completo = '/<div class="panel entry-content" id="tab-description" style="display: block;">(.+?)<\/div>/';
-                    preg_match($regex_descricao_completo, $pagina_interna_livro, $descricao);
-                    $descricao[1] = str_replace("<h2>Descrição do livro</h2>","",$descricao[1]);
-                    $livro['descricao'] = html_entity_decode($descricao[1]);
-
+                    if(isset($url_interno[1])){
+                        $pagina_interna_livro = file_get_contents($url_interno[1]);
+                        //Limpa as quebras de linha
+                        $pagina_interna_livro = preg_replace( "/\r|\n/", "", $pagina_interna_livro);
+                        //get descrição do livro
+                        $regex_descricao_completo = '/<div class="panel entry-content" id="tab-description" style="display: block;">(.+?)<\/div>/';
+                        preg_match($regex_descricao_completo, $pagina_interna_livro, $descricao);
+                        $descricao[1] = str_replace("<h2>Descrição do livro</h2>","",$descricao[1]);
+                        $livro['descricao'] = html_entity_decode($descricao[1]);
+                    }
                     $ja_existe = \App\Lelivros::where('titulo',$livro['titulo'])->first();
                     if(!$ja_existe){
                         \App\Lelivros::create($livro);

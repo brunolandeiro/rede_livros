@@ -165,10 +165,42 @@
                         results: data
                     }
                 }
-            }
+            },
+            escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
+            templateResult: formatRepo,
+            templateSelection: formatRepoSelection
 
         });
     });
+    function formatRepo (repo) {
+      if (repo.loading) {
+        return repo.text;
+      }
+      if(repo.img == null){
+          repo.img = '/imgs_livro/book.jpg';
+      }
+
+      // var markup = "<div class='select2-result-repository clearfix'>" +
+      //   "<div class='select2-result-repository__avatar '><img src='" + repo.img + "' height='60'/></div>" +
+      //   "<div class='select2-result-repository__meta'>" +
+      //     "<div class='select2-result-repository__title'>" + repo.text + "</div>";
+      var markup = "<div class='select2-result-repository clearfix'>" +
+        "<div class='w3-row'>" +
+            "<div class='w3-col m2'>" +
+                "<div class='select2-result-repository__avatar '><img src='" + repo.img + "' height='100'/></div>" +
+            "</div>" +
+            "<div class='w3-col m10'>" +
+                "<div class='select2-result-repository__meta'>" +
+                    "<div class='select2-result-repository__title w3-margin'>" + repo.text + "</div>";
+                "</div>" +
+            "</div>" +
+        "</div>" ;
+      return markup;
+    }
+
+    function formatRepoSelection (repo) {
+      return repo.full_name || repo.text;
+    }
     </script>
     <script>
         var editor = new wysihtml5.Editor("wysihtml5-textarea", { // id of textarea element
